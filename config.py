@@ -12,7 +12,7 @@ API_ID = int(getenv("API_ID", None))
 API_HASH = getenv("API_HASH", None)
 
 
-COOKIE_URL = getenv("𝐂𝐎𝐎𝐊𝐈𝐄𝐒_𝐔𝐑𝐋")
+COOKIE_URL = getenv("https://batbin.me/prememoda")
 
 # Get your token from @BotFather on Telegram.
 BOT_TOKEN = getenv("BOT_TOKEN", None)
@@ -38,7 +38,7 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/immortal-music/maythusharmusic",
+    "https://github.com/nan10psp/maythusharmusic",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 GIT_TOKEN = getenv(
