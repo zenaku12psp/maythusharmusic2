@@ -1,4 +1,4 @@
-import requests
+'''import requests
 from config import COOKIE_URL
 from maythusharmusic.utils.errors import capture_internal_err
 from maythusharmusic.logging import LOGGER
@@ -51,4 +51,4 @@ async def fetch_and_store_cookies():
         with open(COOKIE_PATH, "w", encoding="utf-8") as f:
             f.write(cookies)
     except Exception as e:
-        raise IOError(f"⚠️ ғᴀɪʟᴇᴅ ᴛᴏ sᴀᴠᴇ ᴄᴏᴏᴋɪᴇs: {e}")
+        raise IOError(f"⚠️ ғᴀɪʟᴇᴅ ᴛᴏ sᴀᴠᴇ ᴄᴏᴏᴋɪᴇs: {e}")'''
