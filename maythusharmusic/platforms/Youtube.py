@@ -17,70 +17,86 @@ import random
 import logging
 import requests
 import time
+from config import API_URL, API_KEY
 
+USE_API = bool(API_URL and API_KEY)
+_logged_api_skip = False
+CHUNK_SIZE = 8192
+RETRY_DELAY = 2
+cookies_file = "cookies/cookies.txt"
+download_folder = "downloads"
+os.makedirs(download_folder, exist_ok=True)
 
-# ✅ Configurable constants
-API_KEY = "Rf1qda5gyCITj6VbrekzRxmR"
-API_BASE_URL = "http://deadlinetech.site"
-
-MIN_FILE_SIZE = 51200
 
 def extract_video_id(link: str) -> str:
-    patterns = [
-        r'youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=)([0-9A-Za-z_-]{11})',
-        r'youtu\.be\/([0-9A-Za-z_-]{11})',
-        r'youtube\.com\/(?:playlist\?list=[^&]+&v=|v\/)([0-9A-Za-z_-]{11})',
-        r'youtube\.com\/(?:.*\?v=|.*\/)([0-9A-Za-z_-]{11})'
-    ]
-
-    for pattern in patterns:
-        match = re.search(pattern, link)
-        if match:
-            return match.group(1)
-
-    raise ValueError("Invalid YouTube link provided.")
-    
+    if "v=" in link:
+        return link.split("v=")[-1].split("&")[0]
+    return link.split("/")[-1].split("?")[0]
 
 
-def api_dl(video_id: str) -> str | None:
-    api_url = f"{API_BASE_URL}/download/song/{video_id}?key={API_KEY}"
-    file_path = os.path.join("downloads", f"{video_id}.mp3")
+def safe_filename(name: str) -> str:
+    return re.sub(r"[\\/*?\"<>|]", "_", name).strip()[:100]
 
-    # ✅ Check if already downloaded
-    if os.path.exists(file_path):
-        print(f"{file_path} already exists. Skipping download.")
-        return file_path
 
-    try:
-        response = requests.get(api_url, stream=True, timeout=10)
+def file_exists(video_id: str) -> Optional[str]:
+    for ext in ["mp3", "m4a", "webm"]:
+        path = f"{download_folder}/{video_id}.{ext}"
+        if os.path.exists(path):
+            print(f"[CACHED] Using existing file: {path}")
+            return path
+    return None
 
-        if response.status_code == 200:
-            os.makedirs("downloads", exist_ok=True)
-            with open(file_path, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
 
-            # ✅ Check file size
-            file_size = os.path.getsize(file_path)
-            if file_size < MIN_FILE_SIZE:
-                print(f"Downloaded file is too small ({file_size} bytes). Removing.")
-                os.remove(file_path)
-                return None
+async def api_download_song(link: str) -> Optional[str]:
+    global _logged_api_skip
 
-            print(f"Downloaded {file_path} ({file_size} bytes)")
-            return file_path
-
-        else:
-            print(f"Failed to download {video_id}. Status: {response.status_code}")
-            return None
-
-    except requests.RequestException as e:
-        print(f"Download error for {video_id}: {e}")
+    if not USE_API:
+        if not _logged_api_skip:
+            print("[SKIPPED] API config missing — using yt-dlp only.")
+            _logged_api_skip = True
         return None
 
-    except OSError as e:
-        print(f"File error for {video_id}: {e}")
+    video_id = extract_video_id(link)
+    song_url = f"{API_URL}/song/{video_id}?api={API_KEY}"
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            while True:
+                async with session.get(song_url) as response:
+                    if response.status != 200:
+                        print(f"[API ERROR] Status {response.status}")
+                        return None
+
+                    data = await response.json()
+                    status = data.get("status", "").lower()
+
+                    if status == "downloading":
+                        await asyncio.sleep(RETRY_DELAY)
+                        continue
+                    elif status == "error":
+                        print(f"[API ERROR] Status=error for {video_id}")
+                        return None
+                    elif status == "done":
+                        download_url = data.get("link")
+                        break
+                    else:
+                        print(f"[API ERROR] Unknown status: {status}")
+                        return None
+
+            fmt = data.get("format", "mp3").lower()
+            path = f"{download_folder}/{video_id}.{fmt}"
+
+            async with session.get(download_url) as file_response:
+                async with aiofiles.open(path, "wb") as f:
+                    while True:
+                        chunk = await file_response.content.read(CHUNK_SIZE)
+                        if not chunk:
+                            break
+                        await f.write(chunk)
+
+            return path
+    except Exception as e:
+        print(f"[API Download Error] {e}")
         return None
 
 
