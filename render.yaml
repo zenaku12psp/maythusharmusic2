@@ -19,6 +19,10 @@ services:
         value: "1318826936"
       - key: LOGGER_ID
         value: "-1002335122520"
+      - key: API_KEY
+        value: "Rf1qda5gyCITj6VbrekzRxmR"
+      - key: API_URL
+        value: "http://deadlinetech.site"
 #      - key: COOKIE_URL
  #       value: "https://batbin.me/counterprotest"
       - key: STRING_SESSION
