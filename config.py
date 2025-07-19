@@ -40,21 +40,21 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/nan10psp/maythusharmusic",
+    "https://github.com/zenaku12psp/maythusharmusic2",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # Fill this variable if your upstream repository is private
 
-SUPPORT_CHANNEL_LINK = getenv("SUPPORT_CHANNEL_LINK", "@sasukevipmusicbotsupport")
-SUPPORT_CHAT_LINK = getenv("SUPPORT_CHAT_LINK", "@sasukemusicsupportchat")
+SUPPORT_CHANNEL_LINK = getenv("SUPPORT_CHANNEL_LINK", "@JBmusic_myanmar")
+SUPPORT_CHAT_LINK = getenv("SUPPORT_CHAT_LINK", "@JBmusic_myanmar2002")
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/sasukevipmusicbotsupport")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/sasukemusicsupportchat")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/JBmusic_myanmar")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/JBmusic_myanmar2002")
 
 # Set this to True if you want the assistant to automatically leave chats after an interval
-AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", True))
+AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
 
 # Auto Gcast/Broadcast Handler (True = broadcast on , False = broadcast off During Hosting, Dont Do anything here.)
 AUTO_GCAST = os.getenv("AUTO_GCAST")
@@ -97,14 +97,14 @@ confirmer = {}
 
 
 START_IMG_URL = getenv(
-    "START_IMG_URL", "https://files.catbox.moe/iujzjz.jpg"
+    "START_IMG_URL", "https://files.catbox.moe/0gdu2w.jpg"
 )
 PING_IMG_URL = getenv(
-    "PING_IMG_URL", "https://files.catbox.moe/tyeotp.jpg"
+    "PING_IMG_URL", "https://files.catbox.moe/0gdu2w.jpg"
 )
-PLAYLIST_IMG_URL = "https://files.catbox.moe/tyeotp.jpg"
-STATS_IMG_URL = "https://files.catbox.moe/tyeotp.jpg"
-JOIN_IMG_URL = "https://files.catbox.moe/kwl6o0.jpg"
+PLAYLIST_IMG_URL = "https://files.catbox.moe/0gdu2w.jpg"
+STATS_IMG_URL = "https://files.catbox.moe/0gdu2w.jpg"
+JOIN_IMG_URL = "https://files.catbox.moe/0gdu2w.jpg"
 TELEGRAM_AUDIO_URL = "https://files.catbox.moe/tyeotp.jpg"
 TELEGRAM_VIDEO_URL = "https://files.catbox.moe/tyeotp.jpg"
 STREAM_IMG_URL = "https://files.catbox.moe/tyeotp.jpg"
