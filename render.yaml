@@ -1,27 +1,23 @@
 services:
   - type: worker
-    name: maythushar 2
+    name: maythushar2
     env: docker
     dockerfilePath: ./Dockerfile
-    plan: pro
-    region: frankfurt
+    plan: pro plus
+    region: singapore
     buildCommand: pip3 install --no-cache-dir --upgrade --requirement requirements.txt
     envVars:
       - key: API_ID
-        value: "23301178"
+        value: "29758428"
       - key: API_HASH
-        value: "7387774d17aaa79c3744ff5d9d148214"
+        value: "51f9369e03f78674ca21aee8dfd1c842"
       - key: BOT_TOKEN
-        value: "8047488288:AAG_JCuzXuFXuLTImYvvTiMv-LoMkOnjVR8"
+        value: "7792923188:AAGliIacFzC0aJ_GzOqNul6MsvTC3eXhP7U"
       - key: MONGO_DB_URI
-        value: "mongodb+srv://pyaesonev1:pyaesone@pyaesonev1.4nssv9g.mongodb.net/?retryWrites=true&w=majority"
+        value: "mongodb+srv://wanglin:wanglin@wanglin.ppt93bd.mongodb.net/?retryWrites=true&w=majority"
       - key: OWNER_ID
-        value: "6940535380"
+        value: "1318826936"
       - key: LOGGER_ID
-        value: "-1002016915736"
-      - key: API_KEY
-        value: "Rf1qda5gyCITj6VbrekzRxmR"
-      - key: API_URL
-        value: "http://deadlinetech.site"
+        value: "-1002326433754"
       - key: STRING_SESSION
-        value: "BQFjjDoAgKIek3guN38v16Yvok5EdnUCFbKg5wh9igNgRmjJ5MQ0Y0paTQI1N8MhC8kC-qIPTyPHXWXyxvgcKNqm3_poWvE6W7goZDTWnuWEL5SZVBEUQDWiOF2Zco9nhjJLRGKBO62tE010mXgbyV12gwTIAHTHHQEUTwBLJXDYuH_gJ6u5TS8CTwUmYVOPF8txya8F_FY-3dXqFQ-wPiJH-71pqKkRfS5ZRWGeiQs-UHAljDmlAwENLWxm7W6Vym22WzjycHkCiv6ZDe5nMiFEtSG_6Q7lDY3paRGULF2TRDHGWn7SfXYxk-fprC2Hhsald2b37BaCx7AE1WzV1DAdKZvsYwAAAAFsjYQzAA"
+        value: "BQHGE9wAgtDqLyOM1Im7dE709rH722FkhIJw2I25eCFjMwPWzBkLihunyVjGT0ihCRoFx5l6HlxsOxBLMWb584LiL-uVPlljXZr67CGuek4OabqGTYROHiWZKSavaSj8M71L06fpwfv9gL4NTgyX9Alhv_syJxLYCtUK4AqIFlHp0z2M-avFlu6r96sZQ6xJw1mI-xtx5xXwrhyF3Ys7Vs8JY74BOTPO1tGLhvDb0I3dKzPIzKj7CjUS_pj3sPDAeBFbOhrboEiBwEKLgH4tMjJX-J_uUw5L0HIAdkHk7RCSOoZqP7YrYNuMl7eY-q-EUbwGFKrMLM6FjGLFjujPosuZBkxI0wAAAAFbAziCAA"
